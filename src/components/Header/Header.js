@@ -5,9 +5,16 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { basketSelector } from "../../features/basketSlice";
+import { userSelector } from "../../features/userSlice";
+import { signOut } from "@firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 function Header() {
+  const user = useSelector(userSelector);
   const basket = useSelector(basketSelector);
+  const handleAuthentication = () => {
+    if (user) signOut(auth);
+  };
   return (
     <div className="header">
       {/* Will to the path specified in to="" */}
@@ -25,10 +32,17 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <div className="header__option">
-          <span className="header__optionLineOne">Hello Guest</span>
-          <span className="header__optionLineTwo">SignIn</span>
-        </div>
+        {/* redirect/link to login page only if there is no user */}
+        <Link to={!user && "/login"}>
+          <div className="header__option" onClick={handleAuthentication}>
+            <span className="header__optionLineOne">
+              Hello {user ? user : "guest"}
+            </span>
+            <span className="header__optionLineTwo">
+              {user ? "Sign Out" : "Sign In"}
+            </span>
+          </div>
+        </Link>
         <div className="header__option">
           <span className="header__optionLineOne">Returns</span>
           <span className="header__optionLineTwo">& Orders</span>

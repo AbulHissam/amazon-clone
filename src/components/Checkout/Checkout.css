@@ -13,3 +13,6 @@
   padding: 10px;
   border-bottom: 1px solid lightgray;
 }
+.checkout__left > div > h4 {
+  margin-left: 10px;
+}
