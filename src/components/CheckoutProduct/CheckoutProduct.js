@@ -7,7 +7,7 @@ import "./CheckoutProduct.css";
 function CheckoutProduct(item) {
   const dispatch = useDispatch();
   const { id, title, price, rating, imageUrl } = item;
-  console.log(id);
+
   return (
     <div className="checkoutProduct">
       <img className="checkoutProduct__image" src={imageUrl} />
@@ -15,14 +15,14 @@ function CheckoutProduct(item) {
       <div className="checkoutProduct__info">
         <p className="checkoutProduct__title">{title}</p>
         <p className="checkoutProduct__price">
-          <small>$</small>
+          <small>₹</small>
           <strong>{price}</strong>
         </p>
         <div className="checkoutProduct__rating">
           {Array(rating)
             .fill(0)
             .map((_, i) => {
-              return <StarIcon className="product__ratingGoldStar" />;
+              return <StarIcon key={i} className="product__ratingGoldStar" />;
             })}
         </div>
         {

@@ -3,10 +3,11 @@ import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import { basketSelector } from "../../features/basketSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 function Subtotal() {
   const basket = useSelector(basketSelector);
-
+  const navigate = useNavigate();
   const getTotalCost = () => {
     let totalCost = basket.reduce((amount, item) => {
       return amount + item.price;
@@ -32,9 +33,15 @@ function Subtotal() {
         value={basket ? getTotalCost() : 0}
         displayType={"text"}
         thousandSeparator={true}
-        prefix={"$"}
+        prefix={"₹"}
       ></CurrencyFormat>
-      <button>Proceed to checkout</button>
+      <button
+        onClick={() => {
+          navigate("/payment");
+        }}
+      >
+        Proceed to checkout
+      </button>
     </div>
   );
 }

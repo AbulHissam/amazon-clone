@@ -20,20 +20,18 @@ function Checkout() {
         <div>
           <h4>Hello,{user ? user : "Guest"}</h4>
           <h2 className="checkout__title">Your shopping Basket</h2>
-          {basket &&
-            basket.map((item) => {
-              const { id, title, price, rating, imageUrl } = item;
-              return (
-                <CheckoutProduct
-                  key={id}
-                  id={id}
-                  title={title}
-                  price={price}
-                  rating={rating}
-                  imageUrl={imageUrl}
-                />
-              );
-            })}
+          {basket.map((item) => {
+            return (
+              <CheckoutProduct
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                price={item.price}
+                rating={item.rating}
+                imageUrl={item.imageUrl}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="checkout__right">

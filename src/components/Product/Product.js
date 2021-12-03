@@ -11,14 +11,14 @@ function Product({ id, title, price, rating, imageUrl }) {
       <div className="product__info">
         <p>{title}</p>
         <p className="product__price">
-          <small>$</small>
+          <small>₹</small>
           <strong>{price}</strong>
         </p>
         <div className="product__rating">
           {Array(rating)
             .fill(0)
             .map((_, i) => {
-              return <StarIcon className="product__ratingGoldStar" />;
+              return <StarIcon key={i} className="product__ratingGoldStar" />;
             })}
         </div>
       </div>
