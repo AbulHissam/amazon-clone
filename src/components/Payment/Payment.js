@@ -28,16 +28,14 @@ function Payment() {
   useEffect(() => {
     //genertae the special clientSecret which will be used to charge the customer
     const getClientSecret = async () => {
-      const response = await axios({
-        method: "post",
-        // stripe expects the total in currencie subunits (100 cents=1$)
-        url: `/payments/create?total=${getTotalCost() * 100}`,
-      });
-      if (response.status === 200) {
+      try {
+        const response = await axios({
+          method: "post",
+          // stripe expects the total in currencie subunits (100 cents=1$)
+          url: `/payments/create?total=${getTotalCost() * 100}`,
+        });
         setClientSecret(response.data.clientSecret);
-      } else {
-        alert(response.data.error.message);
-      }
+      } catch (error) {}
     };
     if (getTotalCost() > 0) getClientSecret();
   }, [basket]);

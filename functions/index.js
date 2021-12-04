@@ -21,17 +21,19 @@ app.get("/", (req, res) => {
 
 app.post("/payments/create", async (req, res) => {
   const total = req.query.total;
-  console.log("Payment request received Boom", total);
-  const paymentResponse = await stripe.paymentIntents.create({
-    amount: total,
-    currency: "inr",
-  });
-  if (paymentResponse) {
+  console.log("Payment request received", total);
+  try {
+    const paymentResponse = await stripe.paymentIntents.create({
+      amount: total,
+      currency: "inr",
+    });
     res.status(200).send({
       clientSecret: paymentResponse.client_secret,
     });
-  } else {
-    res.status(400).send({ error: paymentResponse.error });
+  } catch (err) {
+    res.status(400).send({
+      message: err.message,
+    });
   }
 });
 
@@ -40,7 +42,7 @@ exports.api = functions.https.onRequest(app);
 
 // http://localhost:5001/clone-17ec5/us-central1/api
 
-//firebase init
+// firebase init
 // set up cloud functions to get this functions directory
 
 // firebase emulators:start
