@@ -24,11 +24,15 @@ export const basketSlice = createSlice({
         );
       }
     },
+    emptyBasket: (state, action) => {
+      state.basket = [];
+    },
   },
 });
 
 // Action creators
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, emptyBasket } =
+  basketSlice.actions;
 
 // Select baset from basket slice basket
 export const basketSelector = (state) => state.basket.basket;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { basketSelector } from "../../features/basketSlice";
+import { basketSelector, emptyBasket } from "../../features/basketSlice";
 import { userSelector } from "../../features/userSlice";
 import CheckoutProduct from "../CheckoutProduct/CheckoutProduct";
 import "./Payment.css";
@@ -13,6 +13,8 @@ import axios from "../../requests/axios";
 function Payment() {
   const user = useSelector(userSelector);
   const basket = useSelector(basketSelector);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -58,7 +60,9 @@ function Payment() {
           setError("");
           setProcessing(false);
 
-          navigate("/orders", { replace: true });
+          dispatch(emptyBasket());
+
+          // navigate("/orders", { replace: true });
         })
         .catch((err) => {
           console.log(err);
